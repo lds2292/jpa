@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    implementation 'org.hibernate:hibernate-entitymanager:5.3.7.Final'
+    implementation 'com.h2database:h2:1.4.197'
+//    ClassNotFoundException JAXBException이 날때 사용
+    compile 'javax.xml.bind:jaxb-api:2.3.0'
+}
+
+test {
+    useJUnitPlatform()
+}
