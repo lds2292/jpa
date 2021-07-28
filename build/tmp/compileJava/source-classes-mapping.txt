@@ -1,3 +1,5 @@
+hellojpa/entity/Team.java
+ hellojpa.entity.Team
 hellojpa/entity/Member.java
  hellojpa.entity.Member
 hellojpa/Main.java
