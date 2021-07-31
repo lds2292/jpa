@@ -6,9 +6,14 @@ import java.util.List;
 
 @Entity
 public class Team {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @Column(name = "TEAM_ID")
     private long id;
+
     private String name;
+
+    @OneToMany(mappedBy = "team")
+    private List<Member> members = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -26,10 +31,11 @@ public class Team {
         this.name = name;
     }
 
-    public Team() {
+    public List<Member> getMembers() {
+        return members;
     }
 
-    public Team(String name) {
-        this.name = name;
+    public void setMembers(List<Member> members) {
+        this.members = members;
     }
 }

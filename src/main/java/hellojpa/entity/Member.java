@@ -4,10 +4,13 @@ import javax.persistence.*;
 
 @Entity
 public class Member {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "MEMBER_ID")
     private Long id;
-    private String name;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    private String username;
+
+    @ManyToOne
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
@@ -19,12 +22,12 @@ public class Member {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Team getTeam() {
@@ -35,10 +38,4 @@ public class Member {
         this.team = team;
     }
 
-    public Member() {
-    }
-
-    public Member(String name) {
-        this.name = name;
-    }
 }
