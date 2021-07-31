@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 public class Member {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -33,5 +33,12 @@ public class Member {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public Member() {
+    }
+
+    public Member(String name) {
+        this.name = name;
     }
 }

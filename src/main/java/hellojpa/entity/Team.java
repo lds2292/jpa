@@ -10,9 +10,6 @@ public class Team {
     private long id;
     private String name;
 
-    @OneToMany(mappedBy = "team")
-    private List<Member> members = new ArrayList<Member>();
-
     public long getId() {
         return id;
     }
@@ -29,7 +26,10 @@ public class Team {
         this.name = name;
     }
 
-    public List<Member> getMembers() {
-        return members;
+    public Team() {
+    }
+
+    public Team(String name) {
+        this.name = name;
     }
 }
