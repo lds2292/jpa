@@ -1,7 +1,6 @@
 package hellojpa;
 
-import hellojpa.entity.Member;
-import hellojpa.entity.Team;
+import hellojpa.entity.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,40 +13,38 @@ public class Main {
         EntityTransaction tx =  em.getTransaction();
         tx.begin();
         try {
-            Team team = new Team();
-            team.setId(1L);
-            team.setName("카카오프렌즈");
+            // BOOK 생성
+            Book book = new Book();
+            book.setName("JPA 따라잡기");
+            book.setAuthor("라이언");
+            book.setPrice(12000);
+            book.setIsbn("abcde");
+            em.persist(book);
 
-            Member member1 = new Member();
-            member1.setId(1L);
-            member1.setUsername("라이언");
+            // MOVIE 생성
+            Movie movie = new Movie();
+            movie.setActor("홍길동");
+            movie.setDirector("고길동");
+            movie.setName("둘리와 함께 동해번쩍 서해번쩍");
+            movie.setPrice(8000);
+            em.persist(movie);
 
-            Member member2 = new Member();
-            member2.setId(2L);
-            member2.setUsername("어피치");
-            member2.setTeam(team);
-
-            Member member3 = new Member();
-            member3.setId(3L);
-            member3.setUsername("춘식이");
-
-            em.persist(team);
-            em.persist(member2);
-            em.persist(member1);
-            em.persist(member3);
-
-            member1.setTeam(team);
-            member3.setTeam(team);
+            // Album 생성
+            Album album = new Album();
+            album.setArtist("아이유");
+            album.setName("LILAC");
+            album.setPrice(24000);
+            em.persist(album);
 
             em.flush();
             em.clear();
 
-            System.out.println("----------");
+            Album iu = em.find(Album.class, album.getId());
+            System.out.println("Album name : " + iu.getName());
+            System.out.println("Album Artist: " + iu.getArtist());
+            System.out.println("Album Price: " + iu.getPrice());
+            System.out.println("Album id: " + iu.getId());
 
-            List<Member> members = em.find(Team.class, 1L).getMembers();
-            for (Member member : members) {
-                System.out.println("member.username() = " + member.getUsername());
-            }
             tx.commit();
         } catch (Exception e){
             e.printStackTrace();

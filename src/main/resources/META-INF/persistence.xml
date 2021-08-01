@@ -3,6 +3,10 @@
     <persistence-unit name="hello">
         <class>hellojpa.entity.Member</class>
         <class>hellojpa.entity.Team</class>
+        <class>hellojpa.entity.Movie</class>
+        <class>hellojpa.entity.Album</class>
+        <class>hellojpa.entity.Book</class>
+        <class>hellojpa.entity.Item</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
@@ -14,7 +18,7 @@
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
 
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+<!--            <property name="hibernate.hbm2ddl.auto" value="create"/>-->
         </properties>
     </persistence-unit>
 </persistence>
