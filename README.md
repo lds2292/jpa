@@ -29,8 +29,6 @@ public class Album extends Item {
 
 @Entity
 @DiscriminatorValue("B")
-//JOIN 컬럼명이 ITEM_ID가 아닌 BOOK_ID로 만들어진다.
-@PrimaryKeyJoinColumn(name = "BOOK_ID")
 public class Book extends Item {
     private String author;
     private String isbn;
