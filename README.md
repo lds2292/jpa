@@ -1,21 +1,15 @@
-# 상속관계 맵핑(JOIN 전략)
-객체에서의 상속 관계를 어떻게 테이블화 할것인가에 대해 전략에 따라 다르게 생성되는 것을 확인한다.
+# 상속관계 맵핑(단일 테이블 전략)
+말 그대로 하나의 테이블에 관련된 필드들을 모두 만들어 하나의 테이블로만 사용하게끔 하는 전략.
 
 |Item|
 |---|
-|id<br>name<br>price|
+|id(PK)<br>name<br>price<br>artist<br>director<br>actor<br>author<br>isbn<br>**DTYPE**|
 
-|Album|Movie|Book|
-|---|---|---|
-|artist|director<br>actor|author<br>isbn|
-
-## 조인 전략
-위의 엔티티들 모두 테이블로 만들고 자식 테이블이 부모 테이블의 기본키를 받아서 기본키 + 외래키로 사용하는 전략이고 조회할때는 조인을 사용하게 된다.  
-ITEM 객체에서 **DTYPE**을 이용하여 타입을 구분한다.
+![img.png](img.png)
 
 ```java
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn
 public abstract class Item {
     @Id

@@ -2,6 +2,8 @@ hellojpa/entity/Member.java
  hellojpa.entity.Member
 hellojpa/entity/Team.java
  hellojpa.entity.Team
+hellojpa/Main.java
+ hellojpa.Main
 hellojpa/entity/Album.java
  hellojpa.entity.Album
 hellojpa/entity/Movie.java
@@ -10,5 +12,3 @@ hellojpa/entity/Book.java
  hellojpa.entity.Book
 hellojpa/entity/Item.java
  hellojpa.entity.Item
-hellojpa/Main.java
- hellojpa.Main
