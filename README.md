@@ -1,44 +1,48 @@
-# 상속관계 맵핑(단일 테이블 전략)
-말 그대로 하나의 테이블에 관련된 필드들을 모두 만들어 하나의 테이블로만 사용하게끔 하는 전략.
+# @MappedSuperclass 매핑
+테이블과 직접 매핑되지 않고 자식 클래스에 엔티티의 매핑 정보를 상속 하기 위해 사용됨  
 
-|Item|
+|BaseEntity|
 |---|
-|id(PK)<br>name<br>price<br>artist<br>director<br>actor<br>author<br>isbn<br>**DTYPE**|
+|id<br>name|
 
-![img.png](img.png)
+|Member|Seller|
+|---|---|
+|email|shopName|
 
 ```java
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn
-public abstract class Item {
+@MappedSuperclass
+public abstract class BaseEntity {
     @Id
     @GeneratedValue
-    @Column(name = "ITEM_ID")
     private Long id;
-
     private String name;
-    private int price;
 }
 
 @Entity
-@DiscriminatorValue("A")
-public class Album extends Item {
-    private String artist;
+@AttributeOverrides({
+        @AttributeOverride(name="id", column = @Column(name = "MEMBER_ID")),
+        @AttributeOverride(name="name", column = @Column(name = "MEMBER_NAME"))
+})
+public class Member extends BaseEntity {
+    private String email;
 }
 
 @Entity
-@DiscriminatorValue("B")
-public class Book extends Item {
-    private String author;
-    private String isbn;
-}
-
-@Entity
-@DiscriminatorValue("M")
-public class Movie extends Item {
-    private String director;
-    private String actor;
+@AttributeOverride(name = "id", column = @Column(name = "SELLER_ID"))
+public class Seller extends BaseEntity {
+    private String shopName;
 }
 ```
 
+## 관련 어노테이션
+### @AttributeOverride / @AttributeOverrides
+@MappedSuperclass에서 물려받은 매핑정보를 재정의 할때 사용하는 어노테이션
+```java
+@AttributeOverrides({
+        @AttributeOverride(name="id", column = @Column(name = "MEMBER_ID")),
+        @AttributeOverride(name="name", column = @Column(name = "MEMBER_NAME"))
+})
+
+@AttributeOverride(name = "id", column = @Column(name = "SELLER_ID"))
+```
+![img.png](img.png)

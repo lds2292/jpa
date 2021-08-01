@@ -2,11 +2,7 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.2">
     <persistence-unit name="hello">
         <class>hellojpa.entity.Member</class>
-        <class>hellojpa.entity.Team</class>
-        <class>hellojpa.entity.Movie</class>
-        <class>hellojpa.entity.Album</class>
-        <class>hellojpa.entity.Book</class>
-        <class>hellojpa.entity.Item</class>
+        <class>hellojpa.entity.Seller</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>

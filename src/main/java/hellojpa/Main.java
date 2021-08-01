@@ -13,37 +13,21 @@ public class Main {
         EntityTransaction tx =  em.getTransaction();
         tx.begin();
         try {
-            // BOOK 생성
-            Book book = new Book();
-            book.setName("JPA 따라잡기");
-            book.setAuthor("라이언");
-            book.setPrice(12000);
-            book.setIsbn("abcde");
-            em.persist(book);
+            Member member = new Member();
+            member.setEmail("lds2292@naver.com");
+            member.setName("이덕수");
+            em.persist(member);
 
-            // MOVIE 생성
-            Movie movie = new Movie();
-            movie.setActor("홍길동");
-            movie.setDirector("고길동");
-            movie.setName("둘리와 함께 동해번쩍 서해번쩍");
-            movie.setPrice(8000);
-            em.persist(movie);
-
-            // Album 생성
-            Album album = new Album();
-            album.setArtist("아이유");
-            album.setName("LILAC");
-            album.setPrice(24000);
-            em.persist(album);
+            Seller seller = new Seller();
+            seller.setName("대표자");
+            seller.setShopName("카카오프렌즈");
+            em.persist(seller);
 
             em.flush();
             em.clear();
 
-            Album iu = em.find(Album.class, album.getId());
-            System.out.println("Album name : " + iu.getName());
-            System.out.println("Album Artist: " + iu.getArtist());
-            System.out.println("Album Price: " + iu.getPrice());
-            System.out.println("Album id: " + iu.getId());
+            Seller findSeller = em.find(Seller.class, seller.getId());
+            System.out.println(findSeller.getShopName());
 
             tx.commit();
         } catch (Exception e){

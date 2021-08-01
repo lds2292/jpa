@@ -1,41 +1,23 @@
 package hellojpa.entity;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 @Entity
-public class Member {
-    @Id
-    @Column(name = "MEMBER_ID")
-    private Long id;
+@AttributeOverrides({
+        @AttributeOverride(name="id", column = @Column(name = "MEMBER_ID")),
+        @AttributeOverride(name="name", column = @Column(name = "MEMBER_NAME"))
+})
+public class Member extends BaseEntity {
+    private String email;
 
-    private String username;
-
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
-
-    public Long getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
 }
