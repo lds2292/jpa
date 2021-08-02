@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.2">
     <persistence-unit name="hello">
-        <class>hellojpa.entity.Member</class>
-        <class>hellojpa.entity.Seller</class>
+        <class>hellojpa.entity.Parent</class>
+        <class>hellojpa.entity.Child</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>

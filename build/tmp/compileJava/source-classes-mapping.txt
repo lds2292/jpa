@@ -1,8 +1,8 @@
-hellojpa/entity/BaseEntity.java
- hellojpa.entity.BaseEntity
-hellojpa/entity/Seller.java
- hellojpa.entity.Seller
-hellojpa/entity/Member.java
- hellojpa.entity.Member
+hellojpa/entity/Parent.java
+ hellojpa.entity.Parent
+hellojpa/entity/ParentId.java
+ hellojpa.entity.ParentId
+hellojpa/entity/Child.java
+ hellojpa.entity.Child
 hellojpa/Main.java
  hellojpa.Main

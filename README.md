@@ -1,48 +1,74 @@
-# @MappedSuperclass 매핑
-테이블과 직접 매핑되지 않고 자식 클래스에 엔티티의 매핑 정보를 상속 하기 위해 사용됨  
+# 복합키 : 비식별 관계 매핑
+부모 테이블의 기본 키를 받아서 자식 테이블의 외래키로만 사용하는 관계
 
-|BaseEntity|
-|---|
-|id<br>name|
+|PARENT|
+|:---:|
+|PARENT_ID1(PK)<br>PARENT_ID2(PK)|
+|NAME|
 
-|Member|Seller|
-|---|---|
-|email|shopName|
+|CHILD|
+|:---:|
+|CHILD_ID(PK)|
+|PARENT_ID1(FK)<br>PARENT_ID2(FK)<br>NAME|
 
+복합키를 매핑하기 위해 식별자 클래스를 별도로 만들어야 한다.
 ```java
-@MappedSuperclass
-public abstract class BaseEntity {
+@Entity
+@IdClass(ParentId.class)
+public class Parent {
     @Id
-    @GeneratedValue
-    private Long id;
+    @Column(name = "PARENT_ID1")
+    private String id1;
+
+    @Id
+    @Column(name = "PARENT_ID2")
+    private String id2;
+
     private String name;
 }
-
-@Entity
-@AttributeOverrides({
-        @AttributeOverride(name="id", column = @Column(name = "MEMBER_ID")),
-        @AttributeOverride(name="name", column = @Column(name = "MEMBER_NAME"))
-})
-public class Member extends BaseEntity {
-    private String email;
-}
-
-@Entity
-@AttributeOverride(name = "id", column = @Column(name = "SELLER_ID"))
-public class Seller extends BaseEntity {
-    private String shopName;
-}
 ```
-
-## 관련 어노테이션
-### @AttributeOverride / @AttributeOverrides
-@MappedSuperclass에서 물려받은 매핑정보를 재정의 할때 사용하는 어노테이션
+## 식별자 클래스
 ```java
-@AttributeOverrides({
-        @AttributeOverride(name="id", column = @Column(name = "MEMBER_ID")),
-        @AttributeOverride(name="name", column = @Column(name = "MEMBER_NAME"))
-})
+public class ParentId implements Serializable {
+    private String id1;
+    private String id2;
 
-@AttributeOverride(name = "id", column = @Column(name = "SELLER_ID"))
+    public ParentId() {
+    }
+
+    public ParentId(String id1, String id2) {
+        this.id1 = id1;
+        this.id2 = id2;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+}
 ```
-![img.png](img.png)
+@IdClass를 사용하기 위해서는
+1. 식별자 클래스의 속성명과 엔티티에서 사용하는 식별자의 속성명이 같아야한다. (id1, id2)
+2. Serializable 인터페이스를 구현해야함
+3. 기본 생성자가 있어야 함
+4. 식별자 클래스를 public이어야 함
+```java
+@Entity
+public class Child {
+    @Id
+    private String id;
+
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "PARENT_ID1_1", referencedColumnName = "PARENT_ID1"),
+            @JoinColumn(name = "PARENT_ID2_2", referencedColumnName = "PARENT_ID2")
+    })
+    private Parent parent;
+}
+```
+@JoinColumn의 name속성과 referencedColumnName 속성의 값이 같으면 referencedColumnName는 생략해도 된다.

@@ -3,7 +3,6 @@ package hellojpa;
 import hellojpa.entity.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,21 +12,22 @@ public class Main {
         EntityTransaction tx =  em.getTransaction();
         tx.begin();
         try {
-            Member member = new Member();
-            member.setEmail("lds2292@naver.com");
-            member.setName("이덕수");
-            em.persist(member);
+            Parent parent = new Parent();
+            parent.setId1("myId1");
+            parent.setId2("myId2");
+            parent.setName("parentName");
+            em.persist(parent);
 
-            Seller seller = new Seller();
-            seller.setName("대표자");
-            seller.setShopName("카카오프렌즈");
-            em.persist(seller);
+            Child child = new Child();
+            child.setId("childId1");
+            child.setParent(parent);
+            em.persist(child);
 
             em.flush();
             em.clear();
 
-            Seller findSeller = em.find(Seller.class, seller.getId());
-            System.out.println(findSeller.getShopName());
+            ParentId parentId = new ParentId("myId1", "myID2");
+            Parent findParent = em.find(Parent.class, parentId);
 
             tx.commit();
         } catch (Exception e){
