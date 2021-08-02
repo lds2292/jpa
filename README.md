@@ -72,3 +72,5 @@ public class Child {
 }
 ```
 @JoinColumn의 name속성과 referencedColumnName 속성의 값이 같으면 referencedColumnName는 생략해도 된다.
+
+![img.png](img.png)
